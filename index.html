@@ -1,22 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Image Sequencer</title>
-<!-- Leaflet 本体（すでにあれば不要） -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<head>
+  <meta charset="utf-8">
+  <title>Fujieda Map with Leaflet</title>
 
-<!-- DistortableImage プラグイン -->
-<link rel="stylesheet" href="lib/Leaflet.DistortableImage-0.21.10/dist/leaflet.distortableimage.css" />
-<script src="lib/Leaflet.DistortableImage-0.21.10/dist/leaflet.distortableimage.js"></script>
+  <!-- Leaflet 本体 -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-<!-- 依存する toolbar -->
-<link rel="stylesheet" href="lib/Leaflet.DistortableImage-0.21.10/lib/leaflet.toolbar.css" />
-<script src="lib/Leaflet.DistortableImage-0.21.10/lib/leaflet.toolbar.js"></script>
+  <!-- DistortableImage プラグイン -->
+  <link rel="stylesheet" href="lib/Leaflet.DistortableImage-0.21.10/dist/leaflet.distortableimage.css" />
+  <script src="lib/Leaflet.DistortableImage-0.21.10/dist/leaflet.distortableimage.js"></script>
 
-  </head>
-  <body>
+  <!-- 依存する toolbar -->
+  <link rel="stylesheet" href="lib/Leaflet.DistortableImage-0.21.10/lib/leaflet.toolbar.css" />
+  <script src="lib/Leaflet.DistortableImage-0.21.10/lib/leaflet.toolbar.js"></script>
 
-  </body>
+  <style>
+    body, html {
+      margin: 0;
+      height: 100%;
+    }
+    #map {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <!-- 地図を表示する要素 -->
+  <div id="map"></div>
+
+  <script>
+    // Leaflet 地図を初期化
+    var map = L.map('map').setView([34.87, 138.27], 13); // 藤枝市あたり
+
+    // 背景タイルを追加（OSM）
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // 画像を読み込み（例: fujieda.jpg）
+    // lib フォルダではなく、同じリポジトリ内に置いた画像名に変えてください
+    var overlay = L.distortableImageOverlay('fujieda.jpg', {
+      corners: [
+        [34.88, 138.25],
+        [34.88, 138.29],
+        [34.86, 138.29],
+        [34.86, 138.25]
+      ]
+    }).addTo(map);
+  </script>
+</body>
 </html>
